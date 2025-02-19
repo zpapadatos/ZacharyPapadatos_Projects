@@ -1,0 +1,71 @@
+package emailEvaluationTestbed;
+
+import emailEvaluationTestbed.EmailRecognizer;
+
+public class EmailEvaluationTestingAutomation {
+	
+	static int numPassed = 0;	// Counter of the number of passed tests
+	static int numFailed = 0;	// Counter of the number of failed tests
+
+	/*
+	 * This mainline displays a header to the console, performs a sequence of
+	 * test cases, and then displays a footer with a summary of the results
+	 */
+	public static void main(String[] args) {
+		System.out.println("\nEmail Evaluation Testing Automation");
+		performTestCase(1, "", false); // test empty input
+		performTestCase(2, "1john@gmail.com", false); // test non-letter at beginning
+		performTestCase(3, "john$@gmail.com", false); // test invalid symbol $
+		performTestCase(4, "j@g", false); // test too short input (4 characters minimum)
+		performTestCase(5, "johnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn@gmail.com", false); // test too long input (36 characters maximum)
+		performTestCase(6, "john@@gmail.com", false); // test two allowed special characters in a row
+		performTestCase(7, "john@gmail.com", true); // test email with no issues
+		performTestCase(8, "johngmail.com", true); // test email without @ symbol
+	}
+	
+	private static void performTestCase(int testCase, String inputText, boolean expectedPass) {
+		System.out.println("____________________________________________________________________________\n\nTest case: " + testCase);
+		System.out.println("Input: \"" + inputText + "\"");
+		System.out.println("______________");
+		System.out.println("\nFinite state machine execution trace:");
+		
+		String resultText= EmailRecognizer.checkForValidEmail(inputText);
+		System.out.println();
+		
+		// If the resulting text is empty, the recognizer accepted the input
+		if (resultText != "") {
+			 // If the test case expected the test to pass then this is a failure
+			if (expectedPass) {
+				System.out.println("***Failure*** The Email <" + inputText + "> is invalid." + 
+						"\nBut it was supposed to be valid, so this is a failure!\n");
+				System.out.println("Error message: " + resultText);
+				numFailed++;
+			}
+			// If the test case expected the test to fail then this is a success
+			else {			
+				System.out.println("***Success*** The Email <" + inputText + "> is invalid." + 
+						"\nBut it was supposed to be invalid, so this is a pass!\n");
+				System.out.println("Error message: " + resultText);
+				numPassed++;
+			}
+		}
+		
+		// If the resulting text is empty, the recognizer accepted the input
+		else {	
+			// If the test case expected the test to pass then this is a success
+			if (expectedPass) {	
+				System.out.println("***Success*** The Email <" + inputText + 
+						"> is valid, so this is a pass!");
+				numPassed++;
+			}
+			// If the test case expected the test to fail then this is a failure
+			else {
+				System.out.println("***Failure*** The Email <" + inputText + 
+						"> was judged as valid" + 
+						"\nBut it was supposed to be invalid, so this is a failure!");
+				numFailed++;
+			}
+		}
+	}
+
+}

@@ -1,1 +1,3 @@
-
+In this program For My CSE 325 class, I was tasked by the mission statement to create a program that could translate a inputted English sentence into morse code. 
+It also had the functionality of a word counter and was able to switch between the red or green light on my FRDM board depending on if the word was the odd word 
+of the string or the even word. 

@@ -1,6 +1,0 @@
-The EmailEvaluationTestingAutomation class automates the testing of email validation by running a series of
-predefined test cases using the EmailRecognizer class. It checks various email formats against expected
-validation rules, such as proper character usage, length constraints, and the presence of required symbols. The
-program tracks the number of passed and failed tests, printing detailed results for each case. It uses a finite
-state machine approach to determine whether an email is valid or invalid and reports discrepancies between
-expected and actual outcomes.
